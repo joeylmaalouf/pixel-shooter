@@ -1,0 +1,4 @@
+Content\p1_left.xnb
+Content\p1_right.xnb
+Content\p2_left.xnb
+Content\p2_right.xnb
