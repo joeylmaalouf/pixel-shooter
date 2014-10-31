@@ -4,3 +4,4 @@ C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\ob
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\PixelShooter.exe
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\PixelShooter.pdb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\FarseerPhysics.dll
