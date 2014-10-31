@@ -52,6 +52,7 @@ namespace PixelShooter
     {
         public Texture2D texture { get; set; }
         public Vector2 position { get; set; }
+
         public Button(Texture2D tex, Vector2 pos)
         {
             this.texture = tex;
