@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
@@ -13,32 +14,29 @@ namespace PixelShooter
 {
     public class Player
     {
+        public Entity Entity { get; set; }
         public String ID { get; set; }
         public ControlScheme Controls { get; set; }
         public Texture2D LeftTexture { get; set; }
         public Texture2D RightTexture { get; set; }
         public Boolean FacingLeft { get; set; }
-        public Vector2 Position { get; set; }
         public Int32 Shots { get; set; }
 
-        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Boolean left, Vector2 pos)
+        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Boolean left)
         {
+            this.Entity = null;
             this.ID = id;
             this.Controls = controls;
             this.LeftTexture = ltex;
             this.RightTexture = rtex;
             this.FacingLeft = left;
-            this.Position = pos;
             this.Shots = 3;
         }
-        
-        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Vector2 pos) :
-            this(id, controls, ltex, rtex, false, pos) { }
 
         public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex) :
-            this(id, controls, ltex, rtex, false, new Vector2(0, 0)) { }
-        
-        public Player(String id, ContentManager content, ControlScheme controls) :
+            this(id, controls, ltex, rtex, false) { }
+
+        public Player(String id, ControlScheme controls, ContentManager content) :
             this(id, controls, content.Load<Texture2D>(String.Format("{0}_left", id)), content.Load<Texture2D>(String.Format("{0}_right", id))) { }
 
         public Texture2D GetCurrentTexture()
@@ -46,14 +44,9 @@ namespace PixelShooter
             return this.FacingLeft ? this.LeftTexture : this.RightTexture;
         }
 
-        public void Move(int x, int y)
-        {
-            this.Position = new Vector2(x, y);
-        }
-
         public override string ToString()
         {
-            return String.Format("Player {0} at {1}, {2}", this.ID, this.Position.X, this.Position.Y);
+            return String.Format("player \"{0}\" at position {1}, {2}", this.ID, this.Entity.Left, this.Entity.Top);
         }
     }
 
@@ -111,8 +104,10 @@ namespace PixelShooter
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1 = new Player("p1", Content, new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt));
-            p2 = new Player("p2", Content, new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space));
+            p1 = new Player("p1", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
+            p2 = new Player("p2", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
+            engine.AssignEntity(p1, new Vector2(100, 100));
+            engine.AssignEntity(p2, new Vector2(200, 100));
         }
 
         protected override void UnloadContent()
@@ -131,8 +126,8 @@ namespace PixelShooter
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            spriteBatch.Draw(p1.GetCurrentTexture(), p1.Position, Color.White);
-            spriteBatch.Draw(p2.GetCurrentTexture(), p2.Position, Color.White);
+            spriteBatch.Draw(p1.GetCurrentTexture(), new Vector2(p1.Entity.Left, p1.Entity.Top), Color.White);
+            spriteBatch.Draw(p2.GetCurrentTexture(), new Vector2(p2.Entity.Left, p2.Entity.Top), Color.White);
             spriteBatch.End();
             base.Draw(gameTime);
         }
