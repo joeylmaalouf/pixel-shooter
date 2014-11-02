@@ -14,23 +14,32 @@ namespace PixelShooter
     public class Player
     {
         public String ID { get; set; }
+        public ControlScheme Controls { get; set; }
         public Texture2D LeftTexture { get; set; }
         public Texture2D RightTexture { get; set; }
         public Boolean FacingLeft { get; set; }
         public Vector2 Position { get; set; }
+        public Int32 Shots { get; set; }
 
-        public Player(String id, Texture2D ltex, Texture2D rtex, Boolean left, Vector2 pos)
+        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Boolean left, Vector2 pos)
         {
             this.ID = id;
+            this.Controls = controls;
             this.LeftTexture = ltex;
             this.RightTexture = rtex;
             this.FacingLeft = left;
             this.Position = pos;
+            this.Shots = 3;
         }
-        public Player(String id, Texture2D ltex, Texture2D rtex, Vector2 pos) : this(id, ltex, rtex, false, pos) { }
-        public Player(String id, Texture2D ltex, Texture2D rtex) : this(id, ltex, rtex, false, new Vector2(0, 0)) { }
-        public Player(String id, ContentManager content) : this(id, content.Load<Texture2D>(String.Format("{0}_left", id)),
-            content.Load<Texture2D>(String.Format("{0}_right", id)), false, new Vector2(0, 0)) { }
+        
+        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Vector2 pos) :
+            this(id, controls, ltex, rtex, false, pos) { }
+
+        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex) :
+            this(id, controls, ltex, rtex, false, new Vector2(0, 0)) { }
+        
+        public Player(String id, ContentManager content, ControlScheme controls) :
+            this(id, controls, content.Load<Texture2D>(String.Format("{0}_left", id)), content.Load<Texture2D>(String.Format("{0}_right", id))) { }
 
         public Texture2D GetCurrentTexture()
         {
@@ -45,6 +54,24 @@ namespace PixelShooter
         public override string ToString()
         {
             return String.Format("Player {0} at {1}, {2}", this.ID, this.Position.X, this.Position.Y);
+        }
+    }
+
+    public class ControlScheme
+    {
+        public Keys Left { get; set; }
+        public Keys Right { get; set; }
+        public Keys Jump { get; set; }
+        public Keys Catch { get; set; }
+        public Keys Shoot { get; set; }
+
+        public ControlScheme(Keys l, Keys r, Keys j, Keys c, Keys s)
+        {
+            this.Left = l;
+            this.Right = r;
+            this.Jump = j;
+            this.Catch = c;
+            this.Shoot = s;
         }
     }
 
@@ -64,6 +91,7 @@ namespace PixelShooter
     {
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        PhysicsEngine engine = new PhysicsEngine();
         Player p1;
         Player p2;
 
@@ -83,8 +111,8 @@ namespace PixelShooter
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1 = new Player("p1", Content);
-            p2 = new Player("p2", Content);
+            p1 = new Player("p1", Content, new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt));
+            p2 = new Player("p2", Content, new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space));
         }
 
         protected override void UnloadContent()
@@ -95,6 +123,7 @@ namespace PixelShooter
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
+            engine.Update();
             base.Update(gameTime);
         }
 
