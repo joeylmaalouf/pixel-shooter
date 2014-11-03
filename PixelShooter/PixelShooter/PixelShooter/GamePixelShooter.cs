@@ -17,31 +17,26 @@ namespace PixelShooter
         public Entity Entity { get; set; }
         public String ID { get; set; }
         public ControlScheme Controls { get; set; }
-        public Texture2D LeftTexture { get; set; }
-        public Texture2D RightTexture { get; set; }
-        public Boolean FacingLeft { get; set; }
+        public Texture2D SpriteSheet { get; set; }
         public Int32 Shots { get; set; }
 
-        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex, Boolean left)
+        public Player(String id, ControlScheme controls, Texture2D sheet)
         {
             this.Entity = null;
             this.ID = id;
             this.Controls = controls;
-            this.LeftTexture = ltex;
-            this.RightTexture = rtex;
-            this.FacingLeft = left;
+            this.SpriteSheet = sheet;
             this.Shots = 3;
         }
 
-        public Player(String id, ControlScheme controls, Texture2D ltex, Texture2D rtex) :
-            this(id, controls, ltex, rtex, false) { }
-
         public Player(String id, ControlScheme controls, ContentManager content) :
-            this(id, controls, content.Load<Texture2D>(String.Format("{0}_left", id)), content.Load<Texture2D>(String.Format("{0}_right", id))) { }
+            this(id, controls, content.Load<Texture2D>(id)) { }
 
-        public Texture2D GetCurrentTexture()
+        public void DrawSpriteInBatch(SpriteBatch batch, Int32 frame)
         {
-            return this.FacingLeft ? this.LeftTexture : this.RightTexture;
+            Int32 slot = (frame%30)/15;
+            Rectangle source = new Rectangle(slot*32, 0, 32, 32);
+            batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Left, this.Entity.Top), source, Color.White);
         }
 
         public override string ToString()
@@ -82,6 +77,7 @@ namespace PixelShooter
 
     public class GamePixelShooter : Microsoft.Xna.Framework.Game
     {
+        Int32 frame;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         PhysicsEngine engine = new PhysicsEngine();
@@ -97,15 +93,17 @@ namespace PixelShooter
 
         protected override void Initialize()
         {
+            IsFixedTimeStep = true;
             IsMouseVisible = true;
+            frame = 0;
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1 = new Player("p1", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
-            p2 = new Player("p2", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
+            p1 = new Player("c2", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
+            p2 = new Player("c5", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
             engine.AssignEntity(p1, new Vector2(100, 100));
             engine.AssignEntity(p2, new Vector2(200, 100));
         }
@@ -119,6 +117,7 @@ namespace PixelShooter
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
             engine.Update();
+            ++frame;
             base.Update(gameTime);
         }
 
@@ -126,8 +125,8 @@ namespace PixelShooter
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
-            spriteBatch.Draw(p1.GetCurrentTexture(), new Vector2(p1.Entity.Left, p1.Entity.Top), Color.White);
-            spriteBatch.Draw(p2.GetCurrentTexture(), new Vector2(p2.Entity.Left, p2.Entity.Top), Color.White);
+            p1.DrawSpriteInBatch(spriteBatch, frame);
+            p2.DrawSpriteInBatch(spriteBatch, frame);
             spriteBatch.End();
             base.Draw(gameTime);
         }

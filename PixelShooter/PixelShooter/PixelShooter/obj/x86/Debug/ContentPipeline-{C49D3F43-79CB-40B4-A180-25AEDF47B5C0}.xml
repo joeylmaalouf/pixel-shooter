@@ -2,40 +2,58 @@
 <XnaContent xmlns:Pipeline="Microsoft.Xna.Framework.Content.Pipeline">
   <Asset Type="Pipeline:BuildItemCollection">
     <Item>
-      <Source>p1_left.png</Source>
-      <Name>p1_left</Name>
+      <Source>c0.png</Source>
+      <Name>c0</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\p1_left.xnb</Output>
-      <Time>2014-10-31T15:44:05.4627382-04:00</Time>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c0.xnb</Output>
+      <Time>2014-11-03T11:45:39.2253837-05:00</Time>
     </Item>
     <Item>
-      <Source>p1_right.png</Source>
-      <Name>p1_right</Name>
+      <Source>c1.png</Source>
+      <Name>c1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\p1_right.xnb</Output>
-      <Time>2014-10-31T15:43:39.808173-04:00</Time>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c1.xnb</Output>
+      <Time>2014-11-03T11:49:29.7424331-05:00</Time>
     </Item>
     <Item>
-      <Source>p2_left.png</Source>
-      <Name>p2_left</Name>
+      <Source>c2.png</Source>
+      <Name>c2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\p2_left.xnb</Output>
-      <Time>2014-10-31T15:48:26.915803-04:00</Time>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c2.xnb</Output>
+      <Time>2014-11-03T11:34:08.5063187-05:00</Time>
     </Item>
     <Item>
-      <Source>p2_right.png</Source>
-      <Name>p2_right</Name>
+      <Source>c3.png</Source>
+      <Name>c3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
-      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\p2_right.xnb</Output>
-      <Time>2014-10-31T15:48:36.836803-04:00</Time>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c3.xnb</Output>
+      <Time>2014-11-03T11:50:28.4693052-05:00</Time>
+    </Item>
+    <Item>
+      <Source>c4.png</Source>
+      <Name>c4</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c4.xnb</Output>
+      <Time>2014-11-03T11:46:18.5583166-05:00</Time>
+    </Item>
+    <Item>
+      <Source>c5.png</Source>
+      <Name>c5</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c5.xnb</Output>
+      <Time>2014-11-03T11:47:21.6626264-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
