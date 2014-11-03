@@ -31,19 +31,17 @@ namespace PixelShooter
             this.AY = 0;
         }
 
-        public void Move()
+        public void SetV(Int32 vx, Int32 vy)
         {
-            this.VX += this.AX;
-            this.VY += this.AY;
-            this.Left += VX;
-            this.Top += VY;
+            this.VX = vx;
+            this.VY = vy;
         }
 
-        public void SetV()
-        { }
-
-        public void SetA()
-        { }
+        public void SetA(Int32 ax, Int32 ay)
+        {
+            this.AX = ax;
+            this.AY = ay;
+        }
     }
 
     public class PhysicsEngine
@@ -68,10 +66,18 @@ namespace PixelShooter
             p.Entity = this.CreateEntity(pos);
         }
 
+        public void MoveEntity(Entity e)
+        {
+            e.VX += e.AX;
+            e.VY += e.AY;
+            e.Left += e.VX;
+            e.Top += e.VY;
+        }
+
         public void Update()
         {
             foreach (Entity e in this.Entities)
-                e.Move();
+                this.MoveEntity(e);
         }
     }
 }
