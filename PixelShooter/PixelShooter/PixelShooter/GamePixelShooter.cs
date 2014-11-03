@@ -86,7 +86,7 @@ namespace PixelShooter
             IsFixedTimeStep = true;
             IsMouseVisible = true;
             frame = 0;
-            engine.CreateEntity(new Vector2(0, 0), new Vector2(), true);
+            engine.SetBorders(GraphicsDevice.Viewport.Bounds);
             base.Initialize();
         }
 

@@ -48,10 +48,16 @@ namespace PixelShooter
     {
         public List<Entity> Entities = new List<Entity>();
         public Double Gravity { get; set; }
+        public Rectangle ScreenBorders { get; set; }
         
         public PhysicsEngine()
         {
             this.Gravity = 9.81;
+        }
+
+        public void SetBorders(Rectangle bounds)
+        {
+            this.ScreenBorders = bounds;
         }
 
         public Entity CreateEntity(Vector2 pos, Vector2 size, Boolean fixd)
