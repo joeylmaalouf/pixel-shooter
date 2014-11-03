@@ -36,12 +36,12 @@ namespace PixelShooter
         {
             Int32 slot = (frame%30)/15;
             Rectangle source = new Rectangle(slot*32, 0, 32, 32);
-            batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Left, this.Entity.Top), source, Color.White);
+            batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Rect.Left, this.Entity.Rect.Top), source, Color.White);
         }
 
         public override string ToString()
         {
-            return String.Format("player \"{0}\" at position {1}, {2}", this.ID, this.Entity.Left, this.Entity.Top);
+            return String.Format("player \"{0}\" at position {1}, {2}", this.ID, this.Entity.Rect.Left, this.Entity.Rect.Top);
         }
     }
 
@@ -76,6 +76,8 @@ namespace PixelShooter
         {
             Window.Title = "Pixel Shooter";
             graphics = new GraphicsDeviceManager(this);
+            graphics.PreferredBackBufferWidth = 640;
+            graphics.PreferredBackBufferHeight = 480;
             Content.RootDirectory = "Content";
         }
 
@@ -84,6 +86,7 @@ namespace PixelShooter
             IsFixedTimeStep = true;
             IsMouseVisible = true;
             frame = 0;
+            engine.CreateEntity(new Vector2(0, 0), new Vector2(), true);
             base.Initialize();
         }
 
@@ -92,8 +95,8 @@ namespace PixelShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             p1 = new Player("c2", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
             p2 = new Player("c5", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
-            engine.AssignEntity(p1, new Vector2(100, 100));
-            engine.AssignEntity(p2, new Vector2(200, 100));
+            engine.AssignEntity(p1, new Vector2(100, 100), new Vector2(32, 32));
+            engine.AssignEntity(p2, new Vector2(200, 100), new Vector2(32, 32));
         }
 
         protected override void UnloadContent()
