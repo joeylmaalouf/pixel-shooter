@@ -20,8 +20,9 @@ namespace PixelShooter
         public Int32 VY { get; set; }
         public Int32 AX { get; set; }
         public Int32 AY { get; set; }
+        public Boolean Fixed { get; set; }
 
-        public Entity(Vector2 pos)
+        public Entity(Vector2 pos, Boolean fixd)
         {
             this.Left += (int)pos.X;
             this.Top += (int)pos.Y;
@@ -29,6 +30,7 @@ namespace PixelShooter
             this.VY = 0;
             this.AX = 0;
             this.AY = 0;
+            this.Fixed = fixd;
         }
 
         public void SetV(Int32 vx, Int32 vy)
@@ -54,24 +56,27 @@ namespace PixelShooter
             this.Gravity = 9.81;
         }
 
-        public Entity CreateEntity(Vector2 pos)
+        public Entity CreateEntity(Vector2 pos, Boolean fixd)
         {
-            Entity e = new Entity(pos);
+            Entity e = new Entity(pos, fixd);
             this.Entities.Add(e);
             return e;
         }
 
         public void AssignEntity(Player p, Vector2 pos)
         {
-            p.Entity = this.CreateEntity(pos);
+            p.Entity = this.CreateEntity(pos, false);
         }
 
         public void MoveEntity(Entity e)
         {
-            e.VX += e.AX;
-            e.VY += e.AY;
-            e.Left += e.VX;
-            e.Top += e.VY;
+            if (!e.Fixed)
+            {
+                e.VX += e.AX;
+                e.VY += e.AY;
+                e.Left += e.VX;
+                e.Top += e.VY;
+            }
         }
 
         public void Update()

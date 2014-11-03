@@ -63,18 +63,6 @@ namespace PixelShooter
         }
     }
 
-    public class Button
-    {
-        public Texture2D texture { get; set; }
-        public Vector2 position { get; set; }
-
-        public Button(Texture2D tex, Vector2 pos)
-        {
-            this.texture = tex;
-            this.position = pos;
-        }
-    }
-
     public class GamePixelShooter : Microsoft.Xna.Framework.Game
     {
         Int32 frame;
