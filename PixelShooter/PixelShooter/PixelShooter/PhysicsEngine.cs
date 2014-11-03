@@ -12,22 +12,71 @@ using Microsoft.Xna.Framework.Media;
 
 namespace PixelShooter
 {
+    public class EntityRectangle
+    {
+        public Int32 X { get; set; }
+        public Int32 Y { get; set; }
+        public Int32 Width { get; set; }
+        public Int32 Height { get; set; }
+        public Int32 Left
+        {
+            get { return this.X; }
+            set { this.X = value; }
+        }
+        public Int32 Top
+        {
+            get { return this.Y; }
+            set { this.Y = value; }
+        }
+        public Int32 Right
+        {
+            get { return this.X + this.Width; }
+            set { this.X = value - this.Width; }
+        }
+        public Int32 Bottom
+        {
+            get { return this.Y + this.Height; }
+            set { this.Y = value - this.Height; }
+        }
+
+        public EntityRectangle(Int32 x, Int32 y, Int32 width, Int32 height)
+        {
+            this.X = x;
+            this.Y = y;
+            this.Width = width;
+            this.Height = height;
+        }
+
+        public EntityRectangle(Rectangle rect) :
+            this(rect.X, rect.Y, rect.Width, rect.Height) { }
+
+        public void MoveTo(Int32 x, Int32 y)
+        { this.X = x; this.Y = y; }
+        public void MoveTo(Point pos)
+        { this.MoveTo(pos.X, pos.Y); }
+
+        public void MoveBy(Int32 x, Int32 y)
+        { this.X += x; this.Y += y; }
+        public void MoveBy(Point pos)
+        { this.MoveBy(pos.X, pos.Y); }
+    }
+
     public class Entity
     {
-        public Rectangle Rect { get; set; }
+        public EntityRectangle Rect { get; set; }
         public Int32 VX { get; set; }
         public Int32 VY { get; set; }
         public Int32 AX { get; set; }
         public Int32 AY { get; set; }
         public Boolean Fixed { get; set; }
 
-        public Entity(Vector2 pos, Vector2 size, Boolean fixd)
+        public Entity(Point pos, Point size, Boolean fixd)
         {
-            this.Rect = new Rectangle((Int32)pos.X, (Int32)pos.Y, (Int32)size.X, (Int32)size.Y);
-            this.VX = 0;
+            this.Rect = new EntityRectangle(pos.X, pos.Y, size.X, size.Y);
+            this.VX = -2;
             this.VY = 0;
             this.AX = 0;
-            this.AY = 0;
+            this.AY = 1;
             this.Fixed = fixd;
         }
 
@@ -47,12 +96,10 @@ namespace PixelShooter
     public class PhysicsEngine
     {
         public List<Entity> Entities = new List<Entity>();
-        public Double Gravity { get; set; }
         public Rectangle ScreenBorders { get; set; }
         
         public PhysicsEngine()
         {
-            this.Gravity = 9.81;
         }
 
         public void SetBorders(Rectangle bounds)
@@ -60,14 +107,14 @@ namespace PixelShooter
             this.ScreenBorders = bounds;
         }
 
-        public Entity CreateEntity(Vector2 pos, Vector2 size, Boolean fixd)
+        public Entity CreateEntity(Point pos, Point size, Boolean fixd)
         {
             Entity e = new Entity(pos, size, fixd);
             this.Entities.Add(e);
             return e;
         }
 
-        public void AssignEntity(Player p, Vector2 pos, Vector2 size)
+        public void AssignEntity(Player p, Point pos, Point size)
         {
             p.Entity = this.CreateEntity(pos, size, false);
         }
@@ -78,7 +125,19 @@ namespace PixelShooter
             {
                 e.VX += e.AX;
                 e.VY += e.AY;
-                e.Rect.Offset(e.VX, e.VY);
+                e.Rect.MoveBy(e.VX, e.VY);
+
+                if (e.Rect.Left < this.ScreenBorders.Left)
+                    e.Rect.MoveTo(this.ScreenBorders.Right - e.Rect.Width, e.Rect.Y);
+
+                if (e.Rect.Right > this.ScreenBorders.Right)
+                    e.Rect.MoveTo(this.ScreenBorders.Left, e.Rect.Y);
+
+                if (e.Rect.Top < this.ScreenBorders.Top)
+                    e.Rect.MoveTo(e.Rect.X, this.ScreenBorders.Top);
+
+                if (e.Rect.Bottom > this.ScreenBorders.Bottom)
+                    e.Rect.MoveTo(e.Rect.X, this.ScreenBorders.Bottom - e.Rect.Height);
             }
         }
 

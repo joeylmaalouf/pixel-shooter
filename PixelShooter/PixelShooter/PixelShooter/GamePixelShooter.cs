@@ -41,7 +41,7 @@ namespace PixelShooter
 
         public override string ToString()
         {
-            return String.Format("player \"{0}\" at position {1}, {2}", this.ID, this.Entity.Rect.Left, this.Entity.Rect.Top);
+            return String.Format("player \"{0}\" at position {1}, {2}", this.ID, this.Entity.Rect.X, this.Entity.Rect.Y);
         }
     }
 
@@ -93,10 +93,10 @@ namespace PixelShooter
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1 = new Player("c2", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
-            p2 = new Player("c5", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
-            engine.AssignEntity(p1, new Vector2(100, 100), new Vector2(32, 32));
-            engine.AssignEntity(p2, new Vector2(200, 100), new Vector2(32, 32));
+            p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
+            p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
+            engine.AssignEntity(p1, new Point(100, 100), new Point(32, 32));
+            engine.AssignEntity(p2, new Point(200, 100), new Point(32, 32));
         }
 
         protected override void UnloadContent()

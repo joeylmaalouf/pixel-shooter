@@ -30,33 +30,33 @@
     <Reference Include="Microsoft.Xna.Framework.Content.Pipeline.VideoImporters, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="c0.png">
-      <Name>c0</Name>
+    <Compile Include="blue.png">
+      <Name>blue</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="c1.png">
-      <Name>c1</Name>
+    <Compile Include="green.png">
+      <Name>green</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="c2.png">
-      <Name>c2</Name>
+    <Compile Include="orange.png">
+      <Name>orange</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="c3.png">
-      <Name>c3</Name>
+    <Compile Include="pink.png">
+      <Name>pink</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="c4.png">
-      <Name>c4</Name>
+    <Compile Include="red.png">
+      <Name>red</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="c5.png">
-      <Name>c5</Name>
+    <Compile Include="yellow.png">
+      <Name>yellow</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

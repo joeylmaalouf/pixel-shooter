@@ -1,6 +1,6 @@
-Content\c0.xnb
-Content\c1.xnb
-Content\c2.xnb
-Content\c3.xnb
-Content\c4.xnb
-Content\c5.xnb
+Content\blue.xnb
+Content\green.xnb
+Content\orange.xnb
+Content\pink.xnb
+Content\red.xnb
+Content\yellow.xnb

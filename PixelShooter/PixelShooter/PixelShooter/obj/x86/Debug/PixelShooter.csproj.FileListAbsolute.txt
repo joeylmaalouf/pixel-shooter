@@ -4,9 +4,9 @@ C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\ob
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\Microsoft.Xna.Framework.RuntimeProfile.txt
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\PixelShooter.exe
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\obj\x86\Debug\PixelShooter.pdb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c0.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c1.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c2.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c3.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c4.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\c5.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\blue.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\green.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\orange.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\pink.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\red.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\yellow.xnb
