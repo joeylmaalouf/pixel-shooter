@@ -55,6 +55,15 @@
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\yellow.xnb</Output>
       <Time>2014-11-04T12:23:38.7377629-05:00</Time>
     </Item>
+    <Item>
+      <Source>shuriken.png</Source>
+      <Name>shuriken</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\shuriken.xnb</Output>
+      <Time>2014-11-04T14:10:49.6608097-05:00</Time>
+    </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
       <ContentProjectGUID>{C49D3F43-79CB-40B4-A180-25AEDF47B5C0}</ContentProjectGUID>

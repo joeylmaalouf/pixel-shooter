@@ -38,6 +38,16 @@ namespace PixelShooter
             get { return this.Y + this.Height; }
             set { this.Y = value - this.Height; }
         }
+        public Int32 CenterX
+        {
+            get { return this.X + this.Width/2; }
+            set { this.X = value - this.Width/2; }
+        }
+        public Int32 CenterY
+        {
+            get { return this.Y + this.Height/2; }
+            set { this.Y = value - this.Height/2; }
+        }
 
         public EntityRectangle(Int32 x, Int32 y, Int32 width, Int32 height)
         {
@@ -59,6 +69,11 @@ namespace PixelShooter
         { this.X += x; this.Y += y; }
         public void MoveBy(Point pos)
         { this.MoveBy(pos.X, pos.Y); }
+
+        public Boolean CollidesWith(EntityRectangle other)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class Entity
@@ -70,16 +85,22 @@ namespace PixelShooter
         public Int32 AY { get; set; }
         public Boolean Grounded { get; set; }
         public Boolean Fixed { get; set; }
+        public Boolean IsAttack { get; set; }
+        public String Owner { get; set; }
+        public Int32 Life { get; set; }
 
-        public Entity(Point pos, Point size, Boolean fixd)
+        public Entity(Point pos, Point size, Boolean fixd, Boolean attack, String id)
         {
             this.Rect = new EntityRectangle(pos.X, pos.Y, size.X, size.Y);
             this.VX = 0;
             this.VY = 0;
             this.AX = 0;
-            this.AY = 1;
+            this.AY = 2;
             this.Fixed = fixd;
             this.Grounded = false;
+            this.IsAttack = attack;
+            this.Owner = id;
+            this.Life = 60;
         }
 
         public void SetV(Int32 vx, Int32 vy)
@@ -99,6 +120,7 @@ namespace PixelShooter
     {
         public List<Entity> Entities = new List<Entity>();
         public Rectangle ScreenBorders { get; set; }
+        public Texture2D AttackTexture { get; set; }
         
         public PhysicsEngine()
         {
@@ -109,16 +131,21 @@ namespace PixelShooter
             this.ScreenBorders = bounds;
         }
 
-        public Entity CreateEntity(Point pos, Point size, Boolean fixd)
+        public void AddTextures(ContentManager content)
         {
-            Entity e = new Entity(pos, size, fixd);
+            this.AttackTexture = content.Load<Texture2D>("shuriken");
+        }
+
+        public Entity CreateEntity(Point pos, Point size, Boolean fixd, Boolean attack, String id)
+        {
+            Entity e = new Entity(pos, size, fixd, attack, id);
             this.Entities.Add(e);
             return e;
         }
 
         public void AssignEntity(Player p, Point pos, Point size)
         {
-            p.Entity = this.CreateEntity(pos, size, false);
+            p.Entity = this.CreateEntity(pos, size, false, false, p.ID);
         }
 
         public void MoveEntity(Entity e)
@@ -148,13 +175,35 @@ namespace PixelShooter
             e.Grounded = (e.Rect.Bottom >= this.ScreenBorders.Bottom);
         }
 
+        public void UpdateAttacks(Entity e)
+        {
+            if (e.Grounded)
+            {
+                e.SetV(0, 0);
+                e.SetA(0, 0);
+            }
+            --e.Life;
+        }
+
         public void Update()
         {
+            for (int i = 0; i < this.Entities.Count; ++i)
+                if (this.Entities.ElementAt(i).Life < 0)
+                    this.Entities.RemoveAt(i);
             foreach (Entity e in this.Entities)
             {
                 this.MoveEntity(e);
                 this.UpdateGrounded(e);
+                if (e.IsAttack)
+                    this.UpdateAttacks(e);
             }
+        }
+
+        public void DrawAttacks(SpriteBatch batch)
+        {
+            foreach (Entity e in this.Entities)
+                if (e.IsAttack)
+                    batch.Draw(this.AttackTexture, new Vector2(e.Rect.Left, e.Rect.Top), Color.White);
         }
     }
 }

@@ -18,7 +18,7 @@ namespace PixelShooter
         public String ID { get; set; }
         public ControlScheme Controls { get; set; }
         public Texture2D SpriteSheet { get; set; }
-        public Int32 Shots { get; set; }
+        public Int32 Cooldown { get; set; }
         public Int32 AnimationOffset { get; set; }
 
         public Player(String id, ControlScheme controls, Texture2D sheet)
@@ -27,7 +27,7 @@ namespace PixelShooter
             this.ID = id;
             this.Controls = controls;
             this.SpriteSheet = sheet;
-            this.Shots = 3;
+            this.Cooldown = 0;
             this.AnimationOffset = 0;
         }
 
@@ -41,7 +41,7 @@ namespace PixelShooter
             batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Rect.Left, this.Entity.Rect.Top), source, Color.White);
         }
 
-        public void UpdateEntityFromInput()
+        public void UpdateEntityFromInput(PhysicsEngine engine)
         {
             if (Keyboard.GetState().IsKeyDown(this.Controls.Left))
             {
@@ -57,9 +57,31 @@ namespace PixelShooter
                 this.Entity.VX = 0;
             if (this.Entity.Grounded && Keyboard.GetState().IsKeyDown(this.Controls.Jump))
             {
-                this.Entity.VY = -20;
+                this.Entity.VY = -30;
                 this.AnimationOffset = 128;
             }
+            if (this.Cooldown <= 0 && Keyboard.GetState().IsKeyDown(this.Controls.Shoot))
+            {
+                Point pos = new Point(this.Entity.Rect.CenterX, this.Entity.Rect.CenterY);
+                Point size = new Point(16, 16);
+                Entity fireball = engine.CreateEntity(pos, size, false, true, this.ID);
+                if (this.AnimationOffset == 128)
+                    fireball.SetV(0, -30);
+                else if (this.AnimationOffset == 0)
+                    fireball.SetV(-40, -10);
+                else if (this.AnimationOffset == 256)
+                    fireball.SetV(40, -10);
+                this.Cooldown = 45;
+            }
+            --this.Cooldown;
+        }
+
+        public void CheckAlive(PhysicsEngine engine)
+        {
+            foreach (Entity e in engine.Entities)
+                if (e.IsAttack && this.Entity.Rect.CollidesWith(e.Rect))
+                {
+                }
         }
 
         public override string ToString()
@@ -110,6 +132,7 @@ namespace PixelShooter
             IsMouseVisible = true;
             frame = 0;
             engine.SetBorders(GraphicsDevice.Viewport.Bounds);
+            engine.AddTextures(Content);
             base.Initialize();
         }
 
@@ -130,8 +153,10 @@ namespace PixelShooter
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            p1.UpdateEntityFromInput();
-            p2.UpdateEntityFromInput();
+            p1.UpdateEntityFromInput(engine);
+            p2.UpdateEntityFromInput(engine);
+            p1.CheckAlive(engine);
+            p2.CheckAlive(engine);
             engine.Update();
             ++frame;
             base.Update(gameTime);
@@ -143,6 +168,7 @@ namespace PixelShooter
             spriteBatch.Begin();
             p1.DrawSpriteInBatch(spriteBatch, frame);
             p2.DrawSpriteInBatch(spriteBatch, frame);
+            engine.DrawAttacks(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
         }
