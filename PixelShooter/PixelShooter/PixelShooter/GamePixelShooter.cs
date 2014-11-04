@@ -35,8 +35,20 @@ namespace PixelShooter
         public void DrawSpriteInBatch(SpriteBatch batch, Int32 frame)
         {
             Int32 slot = (frame%30)/15;
-            Rectangle source = new Rectangle(slot*32, 0, 32, 32);
+            Rectangle source = new Rectangle(slot*64, 0, 64, 64);
             batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Rect.Left, this.Entity.Rect.Top), source, Color.White);
+        }
+
+        public void UpdateEntityFromInput()
+        {
+            if (Keyboard.GetState().IsKeyDown(this.Controls.Left))
+                this.Entity.VX = -10;
+            if (Keyboard.GetState().IsKeyDown(this.Controls.Right))
+                this.Entity.VX = 10;
+            if (!(Keyboard.GetState().IsKeyDown(this.Controls.Left) ^ Keyboard.GetState().IsKeyDown(this.Controls.Right)))
+                this.Entity.VX = 0;
+            if (this.Entity.Grounded && Keyboard.GetState().IsKeyDown(this.Controls.Jump))
+                this.Entity.VY = -20;
         }
 
         public override string ToString()
@@ -76,8 +88,8 @@ namespace PixelShooter
         {
             Window.Title = "Pixel Shooter";
             graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferWidth = 640;
-            graphics.PreferredBackBufferHeight = 480;
+            graphics.PreferredBackBufferWidth = 1080;
+            graphics.PreferredBackBufferHeight = 720;
             Content.RootDirectory = "Content";
         }
 
@@ -95,8 +107,8 @@ namespace PixelShooter
             spriteBatch = new SpriteBatch(GraphicsDevice);
             p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
             p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
-            engine.AssignEntity(p1, new Point(100, 100), new Point(32, 32));
-            engine.AssignEntity(p2, new Point(200, 100), new Point(32, 32));
+            engine.AssignEntity(p1, new Point(100, 100), new Point(64, 64));
+            engine.AssignEntity(p2, new Point(200, 100), new Point(64, 64));
         }
 
         protected override void UnloadContent()
@@ -105,8 +117,10 @@ namespace PixelShooter
 
         protected override void Update(GameTime gameTime)
         {
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+            p1.UpdateEntityFromInput();
+            p2.UpdateEntityFromInput();
             engine.Update();
             ++frame;
             base.Update(gameTime);

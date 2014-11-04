@@ -68,16 +68,18 @@ namespace PixelShooter
         public Int32 VY { get; set; }
         public Int32 AX { get; set; }
         public Int32 AY { get; set; }
+        public Boolean Grounded { get; set; }
         public Boolean Fixed { get; set; }
 
         public Entity(Point pos, Point size, Boolean fixd)
         {
             this.Rect = new EntityRectangle(pos.X, pos.Y, size.X, size.Y);
-            this.VX = -2;
+            this.VX = 0;
             this.VY = 0;
             this.AX = 0;
             this.AY = 1;
             this.Fixed = fixd;
+            this.Grounded = false;
         }
 
         public void SetV(Int32 vx, Int32 vy)
@@ -141,10 +143,18 @@ namespace PixelShooter
             }
         }
 
+        public void UpdateGrounded(Entity e)
+        {
+            e.Grounded = (e.Rect.Bottom >= this.ScreenBorders.Bottom);
+        }
+
         public void Update()
         {
             foreach (Entity e in this.Entities)
+            {
                 this.MoveEntity(e);
+                this.UpdateGrounded(e);
+            }
         }
     }
 }
