@@ -72,7 +72,16 @@ namespace PixelShooter
 
         public Boolean CollidesWith(EntityRectangle other)
         {
-            throw new NotImplementedException();
+            return
+                (
+                (other.Top <= this.Top && this.Top <= other.Bottom && other.Left <= this.Left && this.Left <= other.Right)
+                ||
+                (other.Top <= this.Bottom && this.Bottom <= other.Bottom && other.Left <= this.Left && this.Left <= other.Right)
+                ||
+                (other.Top <= this.Top && this.Top <= other.Bottom && other.Left <= this.Right && this.Right <= other.Right)
+                ||
+                (other.Top <= this.Bottom && this.Bottom <= other.Bottom && other.Left <= this.Right && this.Right <= other.Right)
+                );
         }
     }
 

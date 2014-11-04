@@ -79,8 +79,9 @@ namespace PixelShooter
         public void CheckAlive(PhysicsEngine engine)
         {
             foreach (Entity e in engine.Entities)
-                if (e.IsAttack && this.Entity.Rect.CollidesWith(e.Rect))
+                if (e.IsAttack && e.Owner != this.ID && this.Entity.Rect.CollidesWith(e.Rect))
                 {
+                    throw new NotImplementedException();
                 }
         }
 
