@@ -19,6 +19,7 @@ namespace PixelShooter
         public ControlScheme Controls { get; set; }
         public Texture2D SpriteSheet { get; set; }
         public Int32 Shots { get; set; }
+        public Int32 AnimationOffset { get; set; }
 
         public Player(String id, ControlScheme controls, Texture2D sheet)
         {
@@ -27,6 +28,7 @@ namespace PixelShooter
             this.Controls = controls;
             this.SpriteSheet = sheet;
             this.Shots = 3;
+            this.AnimationOffset = 0;
         }
 
         public Player(String id, ControlScheme controls, ContentManager content) :
@@ -35,20 +37,29 @@ namespace PixelShooter
         public void DrawSpriteInBatch(SpriteBatch batch, Int32 frame)
         {
             Int32 slot = (frame%30)/15;
-            Rectangle source = new Rectangle(slot*64, 0, 64, 64);
+            Rectangle source = new Rectangle(slot * 64 + this.AnimationOffset, 0, 64, 64);
             batch.Draw(this.SpriteSheet, new Vector2(this.Entity.Rect.Left, this.Entity.Rect.Top), source, Color.White);
         }
 
         public void UpdateEntityFromInput()
         {
             if (Keyboard.GetState().IsKeyDown(this.Controls.Left))
+            {
                 this.Entity.VX = -10;
+                this.AnimationOffset = 0;
+            }
             if (Keyboard.GetState().IsKeyDown(this.Controls.Right))
+            {
                 this.Entity.VX = 10;
+                this.AnimationOffset = 256;
+            }
             if (!(Keyboard.GetState().IsKeyDown(this.Controls.Left) ^ Keyboard.GetState().IsKeyDown(this.Controls.Right)))
                 this.Entity.VX = 0;
             if (this.Entity.Grounded && Keyboard.GetState().IsKeyDown(this.Controls.Jump))
+            {
                 this.Entity.VY = -20;
+                this.AnimationOffset = 128;
+            }
         }
 
         public override string ToString()
