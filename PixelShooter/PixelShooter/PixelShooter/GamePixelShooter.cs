@@ -20,6 +20,7 @@ namespace PixelShooter
         public Texture2D SpriteSheet { get; set; }
         public Int32 Cooldown { get; set; }
         public Int32 AnimationOffset { get; set; }
+        public Boolean Alive { set; get; }
 
         public Player(String id, ControlScheme controls, Texture2D sheet)
         {
@@ -29,6 +30,7 @@ namespace PixelShooter
             this.SpriteSheet = sheet;
             this.Cooldown = 0;
             this.AnimationOffset = 0;
+            this.Alive = true;
         }
 
         public Player(String id, ControlScheme controls, ContentManager content) :
@@ -43,35 +45,38 @@ namespace PixelShooter
 
         public void UpdateEntityFromInput(PhysicsEngine engine)
         {
-            if (Keyboard.GetState().IsKeyDown(this.Controls.Left))
+            if (this.Alive)
             {
-                this.Entity.VX = -10;
-                this.AnimationOffset = 0;
-            }
-            if (Keyboard.GetState().IsKeyDown(this.Controls.Right))
-            {
-                this.Entity.VX = 10;
-                this.AnimationOffset = 256;
-            }
-            if (!(Keyboard.GetState().IsKeyDown(this.Controls.Left) ^ Keyboard.GetState().IsKeyDown(this.Controls.Right)))
-                this.Entity.VX = 0;
-            if (this.Entity.Grounded && Keyboard.GetState().IsKeyDown(this.Controls.Jump))
-            {
-                this.Entity.VY = -30;
-                this.AnimationOffset = 128;
-            }
-            if (this.Cooldown <= 0 && Keyboard.GetState().IsKeyDown(this.Controls.Shoot))
-            {
-                Point pos = new Point(this.Entity.Rect.CenterX, this.Entity.Rect.CenterY);
-                Point size = new Point(16, 16);
-                Entity fireball = engine.CreateEntity(pos, size, false, true, this.ID);
-                if (this.AnimationOffset == 128)
-                    fireball.SetV(0, -30);
-                else if (this.AnimationOffset == 0)
-                    fireball.SetV(-40, -10);
-                else if (this.AnimationOffset == 256)
-                    fireball.SetV(40, -10);
-                this.Cooldown = 45;
+                if (Keyboard.GetState().IsKeyDown(this.Controls.Left))
+                {
+                    this.Entity.VX = -10;
+                    this.AnimationOffset = 0;
+                }
+                if (Keyboard.GetState().IsKeyDown(this.Controls.Right))
+                {
+                    this.Entity.VX = 10;
+                    this.AnimationOffset = 256;
+                }
+                if (!(Keyboard.GetState().IsKeyDown(this.Controls.Left) ^ Keyboard.GetState().IsKeyDown(this.Controls.Right)))
+                    this.Entity.VX = 0;
+                if (this.Entity.Grounded && Keyboard.GetState().IsKeyDown(this.Controls.Jump))
+                {
+                    this.Entity.VY = -30;
+                    this.AnimationOffset = 128;
+                }
+                if (this.Cooldown <= 0 && Keyboard.GetState().IsKeyDown(this.Controls.Shoot))
+                {
+                    Point pos = new Point(this.Entity.Rect.CenterX - 8, this.Entity.Rect.CenterY - 8);
+                    Point size = new Point(16, 16);
+                    Entity fireball = engine.CreateEntity(pos, size, false, true, this.ID);
+                    if (this.AnimationOffset == 128)
+                        fireball.SetV(0, -20);
+                    else if (this.AnimationOffset == 0)
+                        fireball.SetV(-30, -10);
+                    else if (this.AnimationOffset == 256)
+                        fireball.SetV(30, -10);
+                    this.Cooldown = 45;
+                }
             }
             --this.Cooldown;
         }
@@ -79,9 +84,10 @@ namespace PixelShooter
         public void CheckAlive(PhysicsEngine engine)
         {
             foreach (Entity e in engine.Entities)
-                if (e.IsAttack && e.Owner != this.ID && this.Entity.Rect.CollidesWith(e.Rect))
+                if (e.IsAttack && !e.Grounded && e.Owner != this.ID && e.Rect.CollidesWith(this.Entity.Rect))
                 {
-                    throw new NotImplementedException();
+                    this.AnimationOffset = 384;
+                    this.Alive = false;
                 }
         }
 
@@ -141,7 +147,7 @@ namespace PixelShooter
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
             p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
-            p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
+            p2 = new Player("pink", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
             engine.AssignEntity(p1, new Point(100, 100), new Point(64, 64));
             engine.AssignEntity(p2, new Point(200, 100), new Point(64, 64));
         }
