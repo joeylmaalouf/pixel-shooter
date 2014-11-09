@@ -7,7 +7,7 @@ C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\ob
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\blue.xnb
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\green.xnb
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\orange.xnb
-C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\pink.xnb
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\red.xnb
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\yellow.xnb
 C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\shuriken.xnb
+C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\LucidaConsole.xnb

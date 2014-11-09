@@ -68,15 +68,20 @@ namespace PixelShooter
                 {
                     Point pos = new Point(this.Entity.Rect.CenterX - 8, this.Entity.Rect.CenterY - 8);
                     Point size = new Point(16, 16);
-                    Entity fireball = engine.CreateEntity(pos, size, false, true, this.ID);
+                    Entity projectile = engine.CreateEntity(pos, size, false, true, this.ID);
                     if (this.AnimationOffset == 128)
-                        fireball.SetV(0, -20);
+                        projectile.SetV(0, -20);
                     else if (this.AnimationOffset == 0)
-                        fireball.SetV(-30, -10);
+                        projectile.SetV(-30, -10);
                     else if (this.AnimationOffset == 256)
-                        fireball.SetV(30, -10);
+                        projectile.SetV(30, -10);
                     this.Cooldown = 45;
                 }
+            }
+            else
+            {
+                this.Entity.SetV(0, 0);
+                this.Entity.SetA(0, 0);
             }
             --this.Cooldown;
         }
@@ -104,14 +109,16 @@ namespace PixelShooter
         public Keys Jump { get; set; }
         public Keys Catch { get; set; }
         public Keys Shoot { get; set; }
+        public Keys Reset { get; set; }
 
-        public ControlScheme(Keys l, Keys r, Keys j, Keys c, Keys s)
+        public ControlScheme(Keys l, Keys r, Keys j, Keys c, Keys s, Keys e)
         {
             this.Left = l;
             this.Right = r;
             this.Jump = j;
             this.Catch = c;
             this.Shoot = s;
+            this.Reset = e;
         }
     }
 
@@ -120,9 +127,11 @@ namespace PixelShooter
         Int32 frame;
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
+        SpriteFont myFont;
         PhysicsEngine engine = new PhysicsEngine();
-        Player p1;
-        Player p2;
+        Player p1, p2;
+        String title, go;
+        Vector2 TitleOrigin, TitlePosition, GameOverOrigin, GameOverPosition;
 
         public GamePixelShooter()
         {
@@ -140,16 +149,20 @@ namespace PixelShooter
             frame = 0;
             engine.SetBorders(GraphicsDevice.Viewport.Bounds);
             engine.AddTextures(Content);
+            this.ResetGame();
             base.Initialize();
         }
 
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt), Content);
-            p2 = new Player("pink", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space), Content);
-            engine.AssignEntity(p1, new Point(100, 100), new Point(64, 64));
-            engine.AssignEntity(p2, new Point(200, 100), new Point(64, 64));
+            myFont = Content.Load<SpriteFont>("LucidaConsole");
+            title = "Pixel Shooter";
+            go = String.Format("Game Over. Press \"{0}\" or \"{1}\" to play again.", p1.Controls.Reset, p2.Controls.Reset);
+            TitleOrigin = myFont.MeasureString(title) / 2;
+            TitlePosition = new Vector2(graphics.PreferredBackBufferWidth / 2 - TitleOrigin.X, TitleOrigin.Y);
+            GameOverOrigin = myFont.MeasureString(go) / 2;
+            GameOverPosition = new Vector2(graphics.PreferredBackBufferWidth / 2 - GameOverOrigin.X, graphics.PreferredBackBufferHeight / 2 - GameOverOrigin.Y);
         }
 
         protected override void UnloadContent()
@@ -160,6 +173,8 @@ namespace PixelShooter
         {
             if (Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
+            if (Keyboard.GetState().IsKeyDown(p1.Controls.Reset) || Keyboard.GetState().IsKeyDown(p2.Controls.Reset))
+                this.ResetGame();
             p1.UpdateEntityFromInput(engine);
             p2.UpdateEntityFromInput(engine);
             p1.CheckAlive(engine);
@@ -173,11 +188,23 @@ namespace PixelShooter
         {
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
+            spriteBatch.DrawString(myFont, title, TitlePosition, Color.White);
+            if (!p1.Alive || !p2.Alive)
+                spriteBatch.DrawString(myFont, go, GameOverPosition, Color.Red);
             p1.DrawSpriteInBatch(spriteBatch, frame);
             p2.DrawSpriteInBatch(spriteBatch, frame);
             engine.DrawAttacks(spriteBatch);
             spriteBatch.End();
             base.Draw(gameTime);
+        }
+
+        public void ResetGame()
+        {
+            engine.Entities.Clear();
+            p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt, Keys.L), Content);
+            p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space, Keys.R), Content);
+            engine.AssignEntity(p1, new Point(200, 100), new Point(64, 64));
+            engine.AssignEntity(p2, new Point(graphics.PreferredBackBufferWidth - 200 - 64, 100), new Point(64, 64));
         }
     }
 }

@@ -29,15 +29,6 @@
       <Time>2014-11-04T12:24:08.8507739-05:00</Time>
     </Item>
     <Item>
-      <Source>pink.png</Source>
-      <Name>pink</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-      <Options>None</Options>
-      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\pink.xnb</Output>
-      <Time>2014-11-07T10:14:37.2607272-05:00</Time>
-    </Item>
-    <Item>
       <Source>red.png</Source>
       <Name>red</Name>
       <Importer>TextureImporter</Importer>
@@ -63,6 +54,15 @@
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\shuriken.xnb</Output>
       <Time>2014-11-04T14:10:49.6608097-05:00</Time>
+    </Item>
+    <Item>
+      <Source>LucidaConsole.spritefont</Source>
+      <Name>LucidaConsole</Name>
+      <Importer>FontDescriptionImporter</Importer>
+      <Processor>FontDescriptionProcessor</Processor>
+      <Options>None</Options>
+      <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\LucidaConsole.xnb</Output>
+      <Time>2014-11-09T12:47:01.4805014-05:00</Time>
     </Item>
     <BuildSuccessful>true</BuildSuccessful>
     <Settings>
