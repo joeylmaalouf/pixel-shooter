@@ -8,7 +8,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\blue.xnb</Output>
-      <Time>2014-11-04T12:24:02.3541243-05:00</Time>
+      <Time>2014-11-09T13:21:25.9509372-05:00</Time>
     </Item>
     <Item>
       <Source>green.png</Source>
@@ -17,7 +17,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\green.xnb</Output>
-      <Time>2014-11-04T12:24:21.283017-05:00</Time>
+      <Time>2014-11-09T13:20:16.2699698-05:00</Time>
     </Item>
     <Item>
       <Source>orange.png</Source>
@@ -26,7 +26,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\orange.xnb</Output>
-      <Time>2014-11-04T12:24:08.8507739-05:00</Time>
+      <Time>2014-11-09T13:18:08.1852705-05:00</Time>
     </Item>
     <Item>
       <Source>red.png</Source>
@@ -35,7 +35,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\red.xnb</Output>
-      <Time>2014-11-04T12:23:40.3929284-05:00</Time>
+      <Time>2014-11-09T13:22:46.807022-05:00</Time>
     </Item>
     <Item>
       <Source>yellow.png</Source>
@@ -44,7 +44,7 @@
       <Processor>TextureProcessor</Processor>
       <Options>None</Options>
       <Output>C:\Users\jmaalouf\GitHub\pixel-shooter\PixelShooter\PixelShooter\PixelShooter\bin\x86\Debug\Content\yellow.xnb</Output>
-      <Time>2014-11-04T12:23:38.7377629-05:00</Time>
+      <Time>2014-11-09T13:19:45.2218653-05:00</Time>
     </Item>
     <Item>
       <Source>shuriken.png</Source>

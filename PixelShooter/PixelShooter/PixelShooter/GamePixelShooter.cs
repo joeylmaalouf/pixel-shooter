@@ -22,19 +22,19 @@ namespace PixelShooter
         public Int32 AnimationOffset { get; set; }
         public Boolean Alive { set; get; }
 
-        public Player(String id, ControlScheme controls, Texture2D sheet)
+        public Player(String id, ControlScheme controls, Texture2D sheet, Int32 animation)
         {
             this.Entity = null;
             this.ID = id;
             this.Controls = controls;
             this.SpriteSheet = sheet;
             this.Cooldown = 0;
-            this.AnimationOffset = 0;
+            this.AnimationOffset = animation;
             this.Alive = true;
         }
 
-        public Player(String id, ControlScheme controls, ContentManager content) :
-            this(id, controls, content.Load<Texture2D>(id)) { }
+        public Player(String id, ControlScheme controls, ContentManager content, Int32 animation) :
+            this(id, controls, content.Load<Texture2D>(id), animation) { }
 
         public void DrawSpriteInBatch(SpriteBatch batch, Int32 frame)
         {
@@ -201,8 +201,8 @@ namespace PixelShooter
         public void ResetGame()
         {
             engine.Entities.Clear();
-            p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt, Keys.L), Content);
-            p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space, Keys.R), Content);
+            p1 = new Player("orange", new ControlScheme(Keys.Left, Keys.Right, Keys.Up, Keys.Down, Keys.RightAlt, Keys.L), Content, 256);
+            p2 = new Player("blue", new ControlScheme(Keys.A, Keys.D, Keys.W, Keys.S, Keys.Space, Keys.R), Content, 0);
             engine.AssignEntity(p1, new Point(200, 100), new Point(64, 64));
             engine.AssignEntity(p2, new Point(graphics.PreferredBackBufferWidth - 200 - 64, 100), new Point(64, 64));
         }
