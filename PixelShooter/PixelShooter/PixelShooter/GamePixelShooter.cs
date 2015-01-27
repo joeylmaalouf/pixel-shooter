@@ -189,7 +189,7 @@ namespace PixelShooter
             GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             spriteBatch.DrawString(myFont, title, TitlePosition, Color.White);
-            if (!p1.Alive || !p2.Alive)
+            if (!(p1.Alive && p2.Alive))
                 spriteBatch.DrawString(myFont, go, GameOverPosition, Color.Red);
             p1.DrawSpriteInBatch(spriteBatch, frame);
             p2.DrawSpriteInBatch(spriteBatch, frame);
